@@ -1,6 +1,9 @@
 node_modules/
-lib/
 research/
+
+# This fork ships the built runtime (lib/) and the client bundle so DSH Desktop
+# can install the repository without running package build scripts.
+
 *.tgz
 .DS_Store
 npm-cache/

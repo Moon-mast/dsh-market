@@ -1,7 +1,7 @@
 {
   "name": "dshmarket",
-  "description": "Visual plugin market inside DeepSeek Harness — browse, search, and one-click install community plugins. · DSH 可视化插件市场：逛一逛，点一下，装好。",
-  "version": "1.73.10",
+  "description": "Visual plugin market for DeepSeek Harness — web and DSH Desktop. Browse, search, and one-click install community plugins. · DSH 可视化插件市场（Web + 桌面端）：逛一逛，点一下，装好。",
+  "version": "1.73.11-desktop.1",
   "icon": "assets/logo.svg",
   "type": "module",
   "main": "lib/index.js",
@@ -9,7 +9,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dsh-market/dsh-market.git"
+    "url": "git+https://github.com/Moon-mast/dsh-market.git"
   },
   "homepage": "https://dshmarket.com",
   "keywords": [
@@ -19,7 +19,8 @@
     "dsh-plugin",
     "marketplace",
     "market",
-    "plugin-manager"
+    "plugin-manager",
+    "desktop"
   ],
   "scripts": {
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.client.json --noEmit && tsc -p tsconfig.tests.json --noEmit",
@@ -29,7 +30,8 @@
     "test": "vitest run",
     "test:compat": "vitest run --config vitest.compat.config.ts",
     "prepack": "npm run build && node scripts/preflight.mjs",
-    "prepare": "npm run build",
+    "desktop:pack": "npm pack",
+    "desktop:install": "node scripts/install-desktop.mjs",
     "validate:registry": "node scripts/validate-registry.mjs",
     "snapshot": "mkdir -p data && curl -sf https://awesome-dsh-plugin.com/plugins.json -o data/registry-snapshot.json && curl -sf https://awesome-dsh-plugin.com/readmes.json -o data/readmes-snapshot.json",
     "check:web-auth-capture": "node scripts/check-web-auth-capture.mjs",
@@ -56,6 +58,12 @@
         "@deepseek-ai/dsh-client-ui-theme"
       ],
       "platform": "web"
+    },
+    "compatibility": {
+      "profiles": [
+        "web",
+        "desktop"
+      ]
     }
   },
   "exports": {

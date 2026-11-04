@@ -17,11 +17,35 @@ The plugin market inside DeepSeek Harness. On dsh 0.2.1+ it is a tab on the **Pl
 
 One-click themes: install, switch live, no restart.
 
+> **This repository is the desktop-adapted fork (`Moon-mast/dsh-market`).**
+> The plugin supports both `dsh web` and the official **DSH Desktop**. On the
+> desktop app it installs into the app-owned `desktop` profile, and install,
+> update and removal all go through the app's own plugin manager. The fork
+> ships prebuilt `lib/` and `client/client.js`, so installing from GitHub does
+> not run build scripts.
+
 ## Install
 
-- **Official DSH Desktop:** Open **Settings → Plugins** in the app, search for
-  `dshmarket`, and install it through the app's plugin manager. No command line
-  is needed.
+- **Official DSH Desktop:** Launch DSH Desktop once so it initializes its
+  profile, then **fully quit the app** (tray included). From a checkout run:
+
+  ```sh
+  npm run desktop:install
+  ```
+
+  The script finds the `dsh` CLI bundled with the desktop app and runs
+  `dsh plugin --profile desktop add github:Moon-mast/dsh-market`. You can run
+  that command yourself instead; if CLI discovery fails, point at it with
+  `npm run desktop:install -- --cli "<app>/resources/runtime/cli/bin/dsh.cmd"`.
+  Reopen DSH Desktop and enable `dshmarket` under **Settings → Plugins**.
+
+  The desktop app owns its profile: it must be fully quit while installing,
+  updating or removing packages. While the app is running, manage plugins from
+  **Settings → Plugins**. On Windows the profile is usually
+  `%USERPROFILE%\.dsh\profiles\desktop`.
+
+- **In-app install from npm:** Open **Settings → Plugins** in the app, search
+  for `dshmarket`, and install it through the app's plugin manager.
 - **Regular `dsh web`:** Run this command, then restart `dsh web`:
 
   ```sh
@@ -42,8 +66,9 @@ One-click themes: install, switch live, no restart.
 
 On a machine with DSH Desktop, running `dsh plugin --profile web add dshmarket`
 may report success but installs the market into `profiles/web`, **not** the
-profile used by the Desktop app. It will not appear in Desktop. Install through
-the app's **Settings → Plugins** instead; Desktop's profile is managed by the app.
+profile used by the Desktop app. It will not appear in Desktop. Use the
+`--profile desktop` command above (with the app quit) or the app's
+**Settings → Plugins** instead; Desktop's profile is managed by the app.
 
 Once it is installed, open the **Plugins** page and pick the **Plugin Market**
 tab next to **Installed** (dsh 0.2.1 and newer — plain `dsh web` included, no

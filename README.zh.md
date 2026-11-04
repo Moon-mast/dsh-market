@@ -17,10 +17,31 @@
 
 主题一键换：装完即生效，点一下切换，不用重启。
 
+> **本仓库是桌面端适配分支（`Moon-mast/dsh-market`）。** 插件同时支持
+> `dsh web` 和官方 **DSH Desktop**：在桌面端它装入应用独占的 `desktop`
+> profile，安装、更新、卸载都由桌面应用自己的插件管理器完成。仓库已包含
+> 预构建的 `lib/` 和 `client/client.js`，从 GitHub 安装时不需要再运行构建
+> 脚本。
+
 ## 安装
 
-- **官方 DSH Desktop 桌面端：** 在应用内打开 **设置 → 插件**，搜索
-  `dshmarket`，通过应用自己的插件管理器安装，无需命令行。
+- **官方 DSH Desktop（桌面端）：** 先启动一次 DSH Desktop 让它初始化
+  profile，然后**完全退出应用**（包括托盘图标）。在仓库目录执行：
+
+  ```sh
+  npm run desktop:install
+  ```
+
+  脚本会自动找到桌面应用自带的 `dsh` 命令行，并执行
+  `dsh plugin --profile desktop add github:Moon-mast/dsh-market`。也可以
+  手动运行这条命令；找不到 CLI 时用
+  `npm run desktop:install -- --cli "<桌面应用>/resources/runtime/cli/bin/dsh.cmd"`
+  指定。装完重新打开 DSH Desktop，在 **设置 → 插件** 里启用 `dshmarket`。
+
+  桌面端的 profile 由应用独占：安装、更新、卸载期间必须完全退出 DSH
+  Desktop；应用运行时的管理入口是 **设置 → 插件**。Windows 的 profile 一般
+  在 `%USERPROFILE%\.dsh\profiles\desktop`。
+
 - **普通 `dsh web`：** 执行以下命令，然后重启 `dsh web`：
 
   ```sh
@@ -39,8 +60,9 @@
 
 在装有 DSH Desktop 的电脑上执行 `dsh plugin --profile web add dshmarket`，
 命令可能提示成功，但市场装进的是 `profiles/web`，**不是**桌面应用使用的
-profile，因此不会出现在桌面端。请通过应用内的 **设置 → 插件** 安装；桌面端
-的 profile 由应用自己的插件管理器管理。
+profile，因此不会出现在桌面端。桌面端请用上面的 `--profile desktop` 命令
+（应用退出时）或应用内的 **设置 → 插件**；桌面端的 profile 由应用自己的
+插件管理器管理。
 
 装好后打开 **插件** 页，点 **已安装** 旁边的 **插件市场** 页签
 （dsh 0.2.1 及以上；普通的 `dsh web` 就有，不需要桌面端）。市场仍然也是
